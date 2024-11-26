@@ -1,0 +1,15 @@
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const productRoutes = require('./routes/productRoutes')
+const userRoutes = require('./routes/userRoutes')
+const app = express()
+
+mongoose.connect('mongodb://localhost:27017').then(() => console.log('connected to db'))
+app.use(express.json())
+app.use(cors())
+app.use('/api/product', productRoutes)
+app.use('/api/user', userRoutes)
+app.use("/uploads", express.static("uploads"));
+// app.use('api', (req, res) => res.status(200).send())
+app.listen(4000, () => console.log('server started listing at port 4000'))
